@@ -31,10 +31,10 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:padding="8dp"
-            android:text="Vendor:" />
+            android:text="Type:" />
 
         <TextView
-            android:id="@+id/textview_sensor_vendor"
+            android:id="@+id/textview_sensor_type"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -75,10 +75,10 @@
             android:paddingLeft="8dp"
             android:paddingRight="8dp"
             android:paddingTop="8dp"
-            android:text="type:" />
+            android:text="vendor:" />
 
         <TextView
-            android:id="@+id/textview_sensor_type"
+            android:id="@+id/textview_sensor_vendor"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingLeft="8dp"

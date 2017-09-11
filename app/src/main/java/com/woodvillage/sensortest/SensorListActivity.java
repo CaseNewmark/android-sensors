@@ -1,6 +1,7 @@
 package com.woodvillage.sensortest;
 
 import android.content.Context;
+import android.content.Intent;
 import android.hardware.Sensor;
 import android.hardware.SensorManager;
 import android.support.annotation.LayoutRes;
@@ -11,6 +12,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -34,6 +36,18 @@ public class SensorListActivity extends AppCompatActivity {
                 android.R.layout.simple_list_item_1,
                 sensorList);
         this.sensorListView.setAdapter(adapter);
+        this.sensorListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(SensorListActivity.this, SensorDetailsActivity.class);
+                Sensor selectedSensor = (Sensor) parent.getItemAtPosition(position);
+                intent.put
+//                EditText editText = (EditText) findViewById(R.id.editText);
+//                String message = editText.getText().toString();
+//                intent.putExtra(EXTRA_MESSAGE, message);
+                startActivity(intent);
+            }
+        });
     }
 
     private class SensorListAdapter<S> extends ArrayAdapter<Sensor> {
@@ -58,14 +72,16 @@ public class SensorListActivity extends AppCompatActivity {
                         .findViewById(R.id.textview_sensor_name))
                         .setText(sensor.getName());
                 ((TextView)sensorListViewItem
+                        .findViewById(R.id.textview_sensor_type))
+                        .setText(sensor.getStringType()
+                                + " - "
+                                + Integer.toString(sensor.getType()));
+                ((TextView)sensorListViewItem
+                        .findViewById(R.id.textview_sensor_version))
+                        .setText(Integer.toString(sensor.getVersion()));
+                ((TextView)sensorListViewItem
                         .findViewById(R.id.textview_sensor_vendor))
                         .setText(sensor.getVendor());
-//                ((TextView)sensorListViewItem
-//                        .findViewById(R.id.textview_sensor_version))
-//                        .setText(sensor.getVersion());
-                ((TextView)sensorListViewItem
-                        .findViewById(R.id.textview_sensor_type))
-                        .setText(sensor.getStringType());
                 ((TextView)sensorListViewItem
                         .findViewById(R.id.textview_sensor_max_range))
                         .setText(Float.toString(sensor.getMaximumRange()));
