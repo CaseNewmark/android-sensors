@@ -17,6 +17,8 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
+
 import java.util.List;
 
 public class SensorListActivity extends AppCompatActivity {
@@ -39,11 +41,10 @@ public class SensorListActivity extends AppCompatActivity {
         this.sensorListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Gson gson = new Gson();
                 Intent intent = new Intent(SensorListActivity.this, SensorDetailsActivity.class);
                 Sensor selectedSensor = (Sensor) parent.getItemAtPosition(position);
-//                EditText editText = (EditText) findViewById(R.id.editText);
-//                String message = editText.getText().toString();
-//                intent.putExtra(EXTRA_MESSAGE, message);
+                intent.putExtra(Globals.id.SENSOR_DESCRIPTION.name(), gson.toJson(selectedSensor));
                 startActivity(intent);
             }
         });
