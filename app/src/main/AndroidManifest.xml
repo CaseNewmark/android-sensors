@@ -17,6 +17,11 @@
             </intent-filter>
         </activity>
         <activity android:name=".SensorDetailsActivity"></activity>
+        <service
+            android:name="com.woodvillage.sensortest.services.SensorService"
+            android:enabled="true" >
+        </service>
+
     </application>
 
 </manifest>

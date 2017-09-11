@@ -1,5 +1,7 @@
 package com.woodvillage.sensortest;
 
+import android.app.ActivityManager;
+import android.app.Notification;
 import android.content.Context;
 import android.content.Intent;
 import android.hardware.Sensor;
@@ -9,6 +11,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,12 +21,15 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
+import com.woodvillage.sensortest.services.SensorService;
 
 import java.util.List;
 
 public class SensorListActivity extends AppCompatActivity {
 
     private ListView sensorListView;
+    private SensorService sensorService;
+    private Intent serviceIntent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +54,24 @@ public class SensorListActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        this.sensorService = new SensorService(this);
+        this.serviceIntent = new Intent(this, this.sensorService.getClass());
+        if (!isServiceRunning(this.sensorService.getClass())) {
+            startService(this.serviceIntent);
+        }
+    }
+
+    private boolean isServiceRunning(Class<?> serviceClass) {
+        ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
+        for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
+            if (serviceClass.getName().equals(service.service.getClassName())) {
+                Log.i ("isMyServiceRunning?", true+"");
+                return true;
+            }
+        }
+        Log.i ("isMyServiceRunning?", false+"");
+        return false;
     }
 
     private class SensorListAdapter<S> extends ArrayAdapter<Sensor> {
