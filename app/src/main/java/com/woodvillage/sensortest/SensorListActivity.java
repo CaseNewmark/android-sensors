@@ -31,7 +31,7 @@ public class SensorListActivity extends AppCompatActivity {
         this.sensorListView = (ListView)findViewById(R.id.listview_sensor_list);
         SensorManager sensorManager = (SensorManager)getSystemService(SENSOR_SERVICE);
         List<Sensor> sensorList = sensorManager.getSensorList(Sensor.TYPE_ALL);
-        SensorListAdapter<Sensor> adapter = new SensorListAdapter<Sensor>(
+        SensorListAdapter<Sensor> adapter = new SensorListAdapter<>(
                 this,
                 android.R.layout.simple_list_item_1,
                 sensorList);
@@ -41,7 +41,6 @@ public class SensorListActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(SensorListActivity.this, SensorDetailsActivity.class);
                 Sensor selectedSensor = (Sensor) parent.getItemAtPosition(position);
-                intent.put
 //                EditText editText = (EditText) findViewById(R.id.editText);
 //                String message = editText.getText().toString();
 //                intent.putExtra(EXTRA_MESSAGE, message);
